@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer name="demo"
+			xmlns="http://www.skyve.org/xml/customer"
+			xsi:schemaLocation="http://www.skyve.org/xml/customer ../../schemas/customer.xsd"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<uiResources logo="skyve.png" />
+	<defaultDateConverter>DD_MMM_YYYY</defaultDateConverter>
+	<defaultTimeConverter>HH24_MI</defaultTimeConverter>
+	<defaultDateTimeConverter>DD_MMM_YYYY_HH24_MI</defaultDateTimeConverter>
+	<defaultTimestampConverter>DD_MMM_YYYY_HH24_MI_SS</defaultTimestampConverter>
+	<modules>
+		<module name="admin" />
+		<module name="whosin"/>
+		<module name="whosinIntegrate" />
+	</modules>
+	<homeModule>whosin</homeModule>
+	<interceptors>
+		<interceptor className="modules.RDBMSAuditInterceptor" />
+	</interceptors>
+</customer>
