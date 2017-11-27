@@ -1,4 +1,4 @@
-package hello.config;
+package org.skyve.config;
 
 import java.io.File;
 import java.util.HashMap;
@@ -9,6 +9,17 @@ import java.util.UUID;
 import javax.annotation.PostConstruct;
 
 import org.skyve.CORE;
+import org.skyve.config.SkyveProperties.Api;
+import org.skyve.config.SkyveProperties.ConfigDataStore;
+import org.skyve.config.SkyveProperties.Content;
+import org.skyve.config.SkyveProperties.Conversations;
+import org.skyve.config.SkyveProperties.Environment;
+import org.skyve.config.SkyveProperties.Factories;
+import org.skyve.config.SkyveProperties.Hibernate;
+import org.skyve.config.SkyveProperties.MailProperty;
+import org.skyve.config.SkyveProperties.Smtp;
+import org.skyve.config.SkyveProperties.Trace;
+import org.skyve.config.SkyveProperties.Url;
 import org.skyve.impl.content.AbstractContentManager;
 import org.skyve.impl.content.elasticsearch.ESClient;
 import org.skyve.impl.metadata.repository.AbstractRepository;
@@ -24,18 +35,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-
-import hello.config.SkyveProperties.Api;
-import hello.config.SkyveProperties.ConfigDataStore;
-import hello.config.SkyveProperties.Content;
-import hello.config.SkyveProperties.Conversations;
-import hello.config.SkyveProperties.Environment;
-import hello.config.SkyveProperties.Factories;
-import hello.config.SkyveProperties.Hibernate;
-import hello.config.SkyveProperties.MailProperty;
-import hello.config.SkyveProperties.Smtp;
-import hello.config.SkyveProperties.Trace;
-import hello.config.SkyveProperties.Url;
 
 @Configuration
 @EnableConfigurationProperties(SkyveProperties.class)
@@ -80,8 +79,8 @@ public class SkyveConfiguration {
 		// JobScheduler.init();
 		// WebUtil.initConversationsCache();
 
-		System.out.println("Server url: " + config.getUrl().getServer());
-		System.out.println("Context path: " + contextPath);
+		logger.debug("Server url: {}", config.getUrl().getServer());
+		logger.debug("Context path: {}", contextPath);
 	}
 
 	public SkyveProperties getConfig() {
@@ -209,10 +208,10 @@ public class SkyveConfiguration {
 								ds.getUser(),
 								ds.getPassword(),
 								dialect));
-				System.out.println(String.format("Added datastore %s with url %s", ds.getName(), ds.getUrl()));
+				logger.debug("Added datastore {} with url {}", ds.getName(), ds.getUrl());
 			} else {
 				UtilImpl.DATA_STORES.put(ds.getName(), new DataStore(jndi, dialect));
-				System.out.println(String.format("Added datastore %s with jndi %s", ds.getName(), jndi));
+				logger.debug("Added datastore {} with jndi {}", ds.getName(), jndi);
 			}
 		}
 	}
@@ -311,7 +310,7 @@ public class SkyveConfiguration {
 			for (MailProperty p : smtp.getProperties()) {
 				if (p.getName() != null && p.getValue() != null) {
 					UtilImpl.SMTP_PROPERTIES.put(p.getName(), p.getValue());
-					System.out.println(String.format("Added mail property key: %s value: %s", p.getName(), p.getValue()));
+					logger.debug("Added mail property key: {} value: {}", p.getName(), p.getValue());
 				}
 			}
 		}

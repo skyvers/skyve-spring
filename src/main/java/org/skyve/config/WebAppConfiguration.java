@@ -1,4 +1,4 @@
-package hello.config;
+package org.skyve.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

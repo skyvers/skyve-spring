@@ -1,4 +1,4 @@
-package hello.controller;
+package org.skyve.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

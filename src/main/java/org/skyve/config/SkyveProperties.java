@@ -1,4 +1,4 @@
-package hello.config;
+package org.skyve.config;
 
 import java.util.ArrayList;
 import java.util.List;
